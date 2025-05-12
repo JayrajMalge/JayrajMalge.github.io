@@ -87,6 +87,13 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             
             const formData = new FormData(this);
+            const name = formData.get('name'); // 'name' is the input's name attribute
+            const email = formData.get('email');
+            const message = formData.get('message');
+            const subject = formData.get("subject");
+             
+            const myemail = 'jayrajmalge@gmail.com'
+            window.location.href = `mailto:${myemail}?subject=${encodeURIComponent(name+"\n"+subject+"\n"+email)}&body=${encodeURIComponent(message)}`;
             const submitBtn = this.querySelector('button[type="submit"]');
             const spinner = document.createElement('div');
             spinner.className = 'spinner';
@@ -120,6 +127,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    if (!document.querySelector('.theme-switch-wrapper')) {
+        const themeSwitchHTML = `
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider round">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                    </div>
+                </label>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('afterbegin', themeSwitchHTML);
+    }
+    
     // Dark Mode Toggle
     const themeSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
     
@@ -146,20 +168,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Add theme switch to DOM if not present
-    if (!document.querySelector('.theme-switch-wrapper')) {
-        const themeSwitchHTML = `
-            <div class="theme-switch-wrapper">
-                <label class="theme-switch" for="checkbox">
-                    <input type="checkbox" id="checkbox" />
-                    <div class="slider round">
-                        <i class="fas fa-sun"></i>
-                        <i class="fas fa-moon"></i>
-                    </div>
-                </label>
-            </div>
-        `;
-        document.body.insertAdjacentHTML('afterbegin', themeSwitchHTML);
-    }
     
     // Project Filter (if you add more projects later)
     const filterButtons = document.createElement('div');
@@ -169,6 +177,8 @@ document.addEventListener('DOMContentLoaded', function() {
         <button class="filter-btn" data-filter="web">Web</button>
         <button class="filter-btn" data-filter="blockchain">Blockchain</button>
         <button class="filter-btn" data-filter="app">App</button>
+        <button class="filter-btn" data-filter="intern">Internship Projects</button>
+        <button class="filter-btn" data-filter="Data Science & ML">Data Science & ML</button>
     `;
     
     const projectsSection = document.getElementById('projects');
@@ -200,6 +210,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (index === 0) card.setAttribute('data-category', 'web');
         if (index === 1) card.setAttribute('data-category', 'blockchain');
         if (index === 2) card.setAttribute('data-category', 'app');
+        if (index === 3) card.setAttribute('data-category','Data Science & ML');
+        if (index === 4) card.setAttribute('data-category','Data Science & ML');
+        if (index === 5) card.setAttribute('data-category','intern');
     });
     
     // Typewriter Effect for Hero Section
